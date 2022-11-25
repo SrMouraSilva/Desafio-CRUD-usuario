@@ -6,18 +6,13 @@ import br.com.srmourasilva.desafio.util.EasyValidator;
 import br.com.srmourasilva.desafio.validation.ErrorMessage;
 import org.junit.jupiter.api.Test;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class UserTests {
-
-    private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+public class UserTest {
 
     @Test
-    public void validSampleUser() {
+    public void sampleUserIsValid() {
         User sampleUser = ModelBuilder.sampleUser();
 
         EasyValidator.Result<User> violations = new EasyValidator().validate(sampleUser);
@@ -35,7 +30,7 @@ public class UserTests {
     }
 
     @Test
-    public void fullNameinSize() {
+    public void fullNameMinSize() {
         User user = ModelBuilder.sampleUser();
         user.setFullName("oi");
 

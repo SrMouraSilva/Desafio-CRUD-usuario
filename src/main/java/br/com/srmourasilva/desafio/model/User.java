@@ -5,7 +5,6 @@ import br.com.srmourasilva.desafio.validation.ErrorMessage;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Optional;
 
 public class User {
 

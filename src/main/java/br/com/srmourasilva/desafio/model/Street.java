@@ -1,12 +1,26 @@
 package br.com.srmourasilva.desafio.model;
 
-import java.util.Optional;
+import br.com.srmourasilva.desafio.util.validation.NotBlankNullable;
+import br.com.srmourasilva.desafio.validation.ErrorMessage;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class Street {
+    @NotNull(message=ErrorMessage.REQUIRED)
+    @Size(min=4, message=ErrorMessage.MIN_SIZE)
     private String zipCode;
+
+    @NotNull(message=ErrorMessage.REQUIRED)
+    @NotBlankNullable
     private String name;
-    private Optional<Integer> number = Optional.empty();
-    private Optional<String> complement = Optional.empty();
+
+    @Min(value=1, message=ErrorMessage.POSITIVE)
+    private Integer number;
+
+    @NotBlankNullable
+    private String complement;
 
     public String getZipCode() {
         return zipCode;
@@ -24,19 +38,19 @@ public class Street {
         this.name = name;
     }
 
-    public Optional<Integer> getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
     public void setNumber(Integer number) {
-        this.number = Optional.ofNullable(number);
+        this.number = number;
     }
 
-    public Optional<String> getComplement() {
+    public String getComplement() {
         return complement;
     }
 
     public void setComplement(String complement) {
-        this.complement = Optional.ofNullable(complement);
+        this.complement = complement;
     }
 }
