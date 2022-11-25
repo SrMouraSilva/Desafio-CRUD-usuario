@@ -1,27 +1,51 @@
 package br.com.srmourasilva.desafio.test.model;
 
 import br.com.srmourasilva.desafio.model.User;
-import br.com.srmourasilva.desafio.sample.ModelBuilder;
-import br.com.srmourasilva.desafio.util.EasyValidator;
+import br.com.srmourasilva.desafio.sample.SampleModel;
+import br.com.srmourasilva.desafio.validation.EasyValidator;
 import br.com.srmourasilva.desafio.validation.ErrorMessage;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
 
     @Test
     public void sampleUserIsValid() {
-        User sampleUser = ModelBuilder.sampleUser();
+        User sampleUser = SampleModel.sampleUser();
 
         EasyValidator.Result<User> violations = new EasyValidator().validate(sampleUser);
         assertTrue(violations.isEmpty());
     }
 
     @Test
+    public void equals() {
+        User sampleUser = SampleModel.sampleUser();
+        User sampleUserOtherInstance = SampleModel.sampleUser();
+        User sampleUserWithDifferentValue = SampleModel.sampleUser();
+
+        sampleUserWithDifferentValue.setFullName(UUID.randomUUID().toString());
+
+        assertEquals(sampleUser, sampleUser);
+        assertEquals(sampleUser, sampleUserOtherInstance);
+
+        assertNotEquals(sampleUser, sampleUserWithDifferentValue);
+    }
+
+    @Test
+    public void constructorWithCopy() {
+        User sampleUser = SampleModel.sampleUser();
+        User sampleUserDeepCopy = SampleModel.sampleUser();
+
+        assertEquals(sampleUser, sampleUserDeepCopy);
+        assertNotSame(sampleUser, sampleUserDeepCopy);
+    }
+
+    @Test
     public void fullNameRequired() {
-        User user = ModelBuilder.sampleUser();
+        User user = SampleModel.sampleUser();
         user.setFullName(null);
 
         EasyValidator.Result<User> violations = new EasyValidator().validate(user);
@@ -31,7 +55,7 @@ public class UserTest {
 
     @Test
     public void fullNameMinSize() {
-        User user = ModelBuilder.sampleUser();
+        User user = SampleModel.sampleUser();
         user.setFullName("oi");
 
         EasyValidator.Result<User> violations = new EasyValidator().validate(user);
@@ -41,7 +65,7 @@ public class UserTest {
 
     @Test
     public void emailRequired() {
-        User user = ModelBuilder.sampleUser();
+        User user = SampleModel.sampleUser();
         user.setEmail(null);
 
         EasyValidator.Result<User> violations = new EasyValidator().validate(user);
@@ -51,7 +75,7 @@ public class UserTest {
 
     @Test
     public void emailValid() {
-        User user = ModelBuilder.sampleUser();
+        User user = SampleModel.sampleUser();
         user.setEmail("email invalid@test.com");
 
         EasyValidator.Result<User> violations = new EasyValidator().validate(user);
@@ -61,7 +85,7 @@ public class UserTest {
 
     @Test
     public void passwordRequired() {
-        User user = ModelBuilder.sampleUser();
+        User user = SampleModel.sampleUser();
         user.setPassword(null);
 
         EasyValidator.Result<User> violations = new EasyValidator().validate(user);
@@ -71,7 +95,7 @@ public class UserTest {
 
     @Test
     public void passwordMinSize() {
-        User userWithShortName = ModelBuilder.sampleUser();
+        User userWithShortName = SampleModel.sampleUser();
         userWithShortName.setPassword("12345");
 
         EasyValidator.Result<User> violations = new EasyValidator().validate(userWithShortName);
@@ -81,7 +105,7 @@ public class UserTest {
 
     @Test
     public void phoneOptional() {
-        User userWithShortName = ModelBuilder.sampleUser();
+        User userWithShortName = SampleModel.sampleUser();
         userWithShortName.setPhone(null);
 
         EasyValidator.Result<User> violations = new EasyValidator().validate(userWithShortName);
@@ -91,7 +115,7 @@ public class UserTest {
 
     @Test
     public void phoneMinSize() {
-        User userWithShortName = ModelBuilder.sampleUser();
+        User userWithShortName = SampleModel.sampleUser();
         userWithShortName.setPhone("123");
 
         EasyValidator.Result<User> violations = new EasyValidator().validate(userWithShortName);
@@ -101,7 +125,7 @@ public class UserTest {
 
     @Test
     public void addressRequired() {
-        User userWithShortName = ModelBuilder.sampleUser();
+        User userWithShortName = SampleModel.sampleUser();
         userWithShortName.setAddress(null);
 
         EasyValidator.Result<User> violations = new EasyValidator().validate(userWithShortName);
@@ -111,7 +135,7 @@ public class UserTest {
 
     @Test
     public void profileRequired() {
-        User userWithShortName = ModelBuilder.sampleUser();
+        User userWithShortName = SampleModel.sampleUser();
         userWithShortName.setProfile(null);
 
         EasyValidator.Result<User> violations = new EasyValidator().validate(userWithShortName);

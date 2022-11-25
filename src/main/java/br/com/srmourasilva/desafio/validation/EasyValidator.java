@@ -1,9 +1,11 @@
-package br.com.srmourasilva.desafio.util;
+package br.com.srmourasilva.desafio.validation;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class EasyValidator {
     private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -22,6 +24,14 @@ public class EasyValidator {
 
         public boolean isEmpty() {
             return violations.isEmpty();
+        }
+
+        public Messages toMessages() {
+            List<Message> messages = violations.stream()
+                .map(it -> new Message(it.getMessage(), it.getPropertyPath()))
+                .collect(Collectors.toList());
+
+            return new Messages(messages);
         }
     }
 

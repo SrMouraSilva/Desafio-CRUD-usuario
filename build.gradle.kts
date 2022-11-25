@@ -18,14 +18,19 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 
+	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+
+	implementation("com.google.guava:guava:31.1-jre")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 
-	// Password in argon2id format
-	implementation("de.mkammerer:argon2-jvm:2.11")
+	implementation("de.mkammerer:argon2-jvm:2.11") {
+		because("Password in argon2id format")
+	}
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.testcontainers:junit-jupiter")
+	testImplementation("org.testcontainers:mongodb")
 }
 
 dependencyManagement {

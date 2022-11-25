@@ -1,4 +1,4 @@
-package br.com.srmourasilva.desafio.util.validation;
+package br.com.srmourasilva.desafio.validation.annotation;
 
 import br.com.srmourasilva.desafio.validation.ErrorMessage;
 import org.hibernate.validator.constraints.ConstraintComposition;

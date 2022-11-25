@@ -1,6 +1,7 @@
 package br.com.srmourasilva.desafio.model;
 
 import br.com.srmourasilva.desafio.validation.ErrorMessage;
+import com.google.common.base.Objects;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -38,6 +39,18 @@ public class User {
     private Profile profile = Profile.USER;
 
     public User() {}
+
+    public User(User user) {
+        this();
+
+        this.setId(user.id);
+        this.setFullName(user.fullName);
+        this.setEmail(user.email);
+        this.setPassword(user.password);
+        this.setPhone(user.phone);
+        this.setAddress(new Address(user.address));
+        this.setProfile(user.profile);
+    }
 
     public String getId() {
         return id;
@@ -93,5 +106,31 @@ public class User {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equal(getId(), user.getId()) && Objects.equal(getFullName(), user.getFullName()) && Objects.equal(getEmail(), user.getEmail()) && Objects.equal(getPassword(), user.getPassword()) && Objects.equal(getPhone(), user.getPhone()) && Objects.equal(getAddress(), user.getAddress()) && getProfile() == user.getProfile();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId(), getFullName(), getEmail(), getPassword(), getPhone(), getAddress(), getProfile());
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address=" + address +
+                ", profile=" + profile +
+                '}';
     }
 }

@@ -1,7 +1,8 @@
 package br.com.srmourasilva.desafio.model;
 
-import br.com.srmourasilva.desafio.util.validation.NotBlankNullable;
+import br.com.srmourasilva.desafio.validation.annotation.NotBlankNullable;
 import br.com.srmourasilva.desafio.validation.ErrorMessage;
+import com.google.common.base.Objects;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -21,6 +22,17 @@ public class Street {
 
     @NotBlankNullable
     private String complement;
+
+    public Street() {}
+
+    public Street(Street street) {
+        this();
+
+        setZipCode(street.zipCode);
+        setName(street.name);
+        setNumber(street.number);
+        setComplement(street.complement);
+    }
 
     public String getZipCode() {
         return zipCode;
@@ -52,5 +64,18 @@ public class Street {
 
     public void setComplement(String complement) {
         this.complement = complement;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Street)) return false;
+        Street street = (Street) o;
+        return Objects.equal(getZipCode(), street.getZipCode()) && Objects.equal(getName(), street.getName()) && Objects.equal(getNumber(), street.getNumber()) && Objects.equal(getComplement(), street.getComplement());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getZipCode(), getName(), getNumber(), getComplement());
     }
 }
