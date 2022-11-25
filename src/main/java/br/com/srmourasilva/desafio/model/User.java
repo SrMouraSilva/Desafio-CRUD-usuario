@@ -1,25 +1,41 @@
 package br.com.srmourasilva.desafio.model;
 
+import br.com.srmourasilva.desafio.validation.ErrorMessage;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Optional;
+
 public class User {
 
     private String id;
 
-    private String name;
+    @NotNull(message=ErrorMessage.REQUIRED)
+    @Size(min=3, message=ErrorMessage.MIN_SIZE)
+    private String fullName;
 
     /**
      * User email. Used as login/username
      */
+    @NotNull(message=ErrorMessage.REQUIRED)
+    @Email(message=ErrorMessage.EMAIL)
     private String email;
 
     /**
-     * Password encoded as argon2id
+     * Password encoded as `argon2id`
      */
+    @NotNull(message=ErrorMessage.REQUIRED)
+    @Size(min=6, message=ErrorMessage.MIN_SIZE)
     private String password;
 
+    @Size(min=4, message=ErrorMessage.MIN_SIZE)
     private String phone;
 
-    private String address;
+    @NotNull(message=ErrorMessage.REQUIRED)
+    private Address address;
 
+    @NotNull(message=ErrorMessage.REQUIRED)
     private Profile profile = Profile.USER;
 
     public User() {}
@@ -32,12 +48,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -64,11 +80,11 @@ public class User {
         this.phone = phone;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
