@@ -9,6 +9,10 @@ import javax.validation.constraints.Size;
 
 public class User {
 
+    public static class Constraints {
+        public static final int PASSWORD_MIN_SIZE = 6;
+    }
+
     private String id;
 
     @NotNull(message=ErrorMessage.REQUIRED)
@@ -26,7 +30,7 @@ public class User {
      * Password encoded as `argon2id`
      */
     @NotNull(message=ErrorMessage.REQUIRED)
-    @Size(min=6, message=ErrorMessage.MIN_SIZE)
+    @Size(min=Constraints.PASSWORD_MIN_SIZE, message=ErrorMessage.MIN_SIZE)
     private String password;
 
     @Size(min=4, message=ErrorMessage.MIN_SIZE)

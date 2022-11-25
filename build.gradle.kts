@@ -24,8 +24,12 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 
 	implementation("de.mkammerer:argon2-jvm:2.11") {
-		because("Password in argon2id format")
+		because("Hashing password in argon2id format")
 	}
+
+	implementation("org.springdoc:springdoc-openapi-webmvc-core:1.6.13")
+	implementation("org.springdoc:springdoc-openapi-data-rest:1.6.13")
+	implementation("org.springdoc:springdoc-openapi-security:1.6.13")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")

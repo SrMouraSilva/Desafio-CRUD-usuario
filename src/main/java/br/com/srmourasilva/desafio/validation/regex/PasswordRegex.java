@@ -4,7 +4,9 @@ public class PasswordRegex {
     public static final String CONTAINS_A_DIGIT = "(?=.*[0-9])";
     public static final String CONTAINS_A_LOWER_CASE_ALPHABET = "(?=.*[a-z])";
     public static final String CONTAINS_A_UPPER_CASE_ALPHABET = "(?=.*[A-Z])";
-    public static final String CONTAINS_A_SPECIAL_CHARACTER = "(?=.*[!@#$%^&-+=()])";
+
+    public static final String SPECIAL_CHARACTER = "!@#$%^&-+=()";
+    public static final String CONTAINS_A_SPECIAL_CHARACTER = "(?=.*["+SPECIAL_CHARACTER+"])";
 
     /**
      * A password requires at least once each element
