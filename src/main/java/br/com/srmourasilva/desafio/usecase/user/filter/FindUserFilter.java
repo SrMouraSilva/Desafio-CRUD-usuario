@@ -13,19 +13,19 @@ import java.util.stream.Collectors;
 
 public class FindUserFilter {
 
-    @Schema(description="Exact user id")
+    @Schema(description="Exact user id", example="507f1f77bcf86cd799439011")
     private Collection<String> id = new LinkedList<>();
 
-    @Schema(description="Ilike user name")
+    @Schema(description="Ilike user name", example="rachel")
     private Collection<String> fullName = new LinkedList<>();
 
-    @Schema(description="Exact email")
+    @Schema(description="Exact email", example="rachel.queiroz@google.com")
     private Collection<String> email = new LinkedList<>();
 
-    @Schema(description="Exact phone")
+    @Schema(description="Exact phone", example="+55 85 9 8765 4321")
     private Collection<String> phone = new LinkedList<>();
 
-    @Schema(description="Exact profile")
+    @Schema(description="Exact profile", example="ADMIN")
     private Collection<Profile> profile = new LinkedList<>();
 
     public Collection<String> getId() {

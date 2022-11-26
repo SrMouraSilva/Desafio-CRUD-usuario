@@ -7,6 +7,7 @@ import br.com.srmourasilva.desafio.model.Profile;
 import br.com.srmourasilva.desafio.model.User;
 import br.com.srmourasilva.desafio.sample.SampleModel;
 import br.com.srmourasilva.desafio.validation.mesage.UserMessage;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -123,18 +124,42 @@ public class UserControllerTest {
         UserResponseDTO anaCatarinaDTO = assertIsValidCreatedUser(createUser(anaCatarina), anaCatarina).returnResult().getResponseBody();
         UserResponseDTO irmaoDoJorelDTO = assertIsValidCreatedUser(createUser(irmaoDoJorel), irmaoDoJorel).returnResult().getResponseBody();
 
-        webTestClient.get()
-            .uri("/users/"+anaCatarinaDTO.getId())
-            .exchange()
-            .expectHeader().contentType(MediaType.APPLICATION_JSON)
-            .expectBody()
-            .jsonPath("$.numberOfElements").isEqualTo(1)
-            .jsonPath("$.content[0].id").isNotEmpty()
-            .jsonPath("$.content[0]").isEqualTo(anaCatarinaDTO)
-        ;
+        assertIsUserFound(findUser(anaCatarinaDTO), anaCatarinaDTO);
 
         deleteUser(anaCatarinaDTO);
         deleteUser(irmaoDoJorelDTO);
+    }
+
+    private void assertIsUserFound(WebTestClient.@NotNull ResponseSpec spec, UserResponseDTO dto) {
+        spec.expectHeader().contentType(MediaType.APPLICATION_JSON)
+            .expectStatus().isOk()
+            .expectBody()
+            .jsonPath(".id").isNotEmpty()
+            .equals(dto);
+    }
+
+    @NotNull
+    private WebTestClient.ResponseSpec findUser(UserResponseDTO anaCatarinaDTO) {
+        return webTestClient.get()
+                .uri("/users/" + anaCatarinaDTO.getId())
+                .exchange();
+    }
+
+    @Test
+    public void deleteAUser() {
+        User anaCatarina = SampleModel.sampleUser();
+        anaCatarina.setFullName("Ana Catarina");
+        anaCatarina.setEmail("ana.catarina@example.com");
+        anaCatarina.setProfile(Profile.ADMIN);
+
+        UserResponseDTO anaCatarinaDTO = assertIsValidCreatedUser(createUser(anaCatarina), anaCatarina).returnResult().getResponseBody();
+
+        assertIsUserFound(findUser(anaCatarinaDTO), anaCatarinaDTO);
+
+        deleteUser(anaCatarinaDTO);
+
+        findUser(anaCatarinaDTO)
+            .expectStatus().isNotFound();
     }
 
     private WebTestClient.ResponseSpec createUser(User user) {
@@ -148,7 +173,8 @@ public class UserControllerTest {
     private WebTestClient.ResponseSpec deleteUser(UserResponseDTO user) {
         return webTestClient.delete()
                 .uri("/users/"+user.getId())
-                .exchange();
+                .exchange()
+                .expectStatus().isNoContent();
     }
 
     private WebTestClient.BodySpec<UserResponseDTO, ?> assertIsValidCreatedUser(WebTestClient.ResponseSpec spec, User user) {

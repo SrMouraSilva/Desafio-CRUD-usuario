@@ -20,7 +20,7 @@ A documentação foi disponibilizada para consulta por meio de dois endereços
    * [x] Busca de usuários
      * [x] pesquisa com filtros, paginação e ordenação dos dados;
    * [ ] Edição de usuário
-   * [ ] Exclusão de usuário
+   * [x] Exclusão de usuário
  * [ ] Autorização
    * [ ] Dois perfis: administrativo (`ADMIN`) e usuário padrão (`USER`);
    * [ ] Os recursos devem estar protegidos para que apenas usuários autenticados tenham acesso;
@@ -34,7 +34,7 @@ A documentação foi disponibilizada para consulta por meio de dois endereços
    * [x] Spring Boot;
    * [ ] Spring Security;
    * [x] MongoDB;
- * [ ] Cobertura de testes;
+ * [x] Cobertura de testes;
  * [ ] Build de container em imagem docker;
  * [ ] YAML para Kubernetes;
  * [ ] Reprodutibilidade: Documentação do processo de geração de imagem e de execução;
