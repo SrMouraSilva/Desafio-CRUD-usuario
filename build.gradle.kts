@@ -19,7 +19,6 @@ dependencies {
 
 	// Security
 	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.bouncycastle:bcpkix-jdk18on:1.72") { because("Spring Security Crypo - Argon2") }
 
 	// Database

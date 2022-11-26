@@ -52,4 +52,5 @@ Como evolução desse projeto, sugere-se:
  * [ ] Criação de JREs com o mínimo necessário (necessário Java >= 9);
  * [ ] Autenticação:
    * [ ] OpenID Connect 1.0 por meio do [Spring Authorization Server](https://spring.io/projects/spring-authorization-server) (necessário Spring Boot 3);
-   * [ ] Ou integração com IdP externa, como o Keycloak, o Amazon Cognito ou o Google Identity Provider.
+   * [ ] Ou integração com IdP externa, como o Keycloak, o Amazon Cognito ou o Google Identity Provider;
+ * Paginação com QueryDSL.
