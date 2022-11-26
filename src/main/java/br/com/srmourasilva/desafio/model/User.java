@@ -4,11 +4,13 @@ import br.com.srmourasilva.desafio.validation.ErrorMessage;
 import br.com.srmourasilva.desafio.validation.regex.PasswordRegex;
 import com.google.common.base.Objects;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Document("users")
 public class User {
 
     public static class Constraints {
@@ -26,7 +28,7 @@ public class User {
     /**
      * User email. Used as login/username
      */
-    @Schema(description="User's email", example="rachel.queiroz@gmail.com")
+    @Schema(description="User's email. Used as login/username", example="rachel.queiroz@gmail.com")
     @NotNull(message=ErrorMessage.REQUIRED)
     @Email(message=ErrorMessage.EMAIL)
     private String email;

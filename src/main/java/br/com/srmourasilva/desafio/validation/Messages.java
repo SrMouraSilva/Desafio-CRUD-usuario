@@ -36,4 +36,8 @@ public class Messages {
     public boolean isEmpty() {
         return this.messages.isEmpty();
     }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
 }

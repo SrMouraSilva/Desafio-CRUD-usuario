@@ -8,6 +8,12 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: desafio
+      MONGO_INITDB_USER: desafio
+      MONGO_INITDB_PWD: desafio
+    volumes:
+      - ./mongo-init/:/docker-entrypoint-initdb.d/:ro
+      #- ./data/mongodb/data/db/:/data/db/
 
   mongo-express:
     image: mongo-express

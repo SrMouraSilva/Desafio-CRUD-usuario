@@ -1,5 +1,6 @@
 package br.com.srmourasilva.desafio.usecase.user;
 
+import br.com.srmourasilva.desafio.dto.user.UserResponseDTO;
 import br.com.srmourasilva.desafio.model.User;
 import br.com.srmourasilva.desafio.usecase.user.password.HashGenerator;
 import br.com.srmourasilva.desafio.repository.UserRepository;
@@ -19,25 +20,18 @@ public class CreateUserUseCase {
         this.hash = hash;
     }
 
-    public User createUser(User user) {
+    public UserResponseDTO createUser(User user) {
         Messages messages = validate(user);
         messages.throwIfNotEmpty();
 
         final User userWithHashPassoword = generateUserWithHashPassword(user);
 
-        return repository.save(userWithHashPassoword);
+        final User newUser = repository.save(userWithHashPassoword);
+
+        return new UserResponseDTO(newUser);
     }
 
-    private User generateUserWithHashPassword(User user) {
-        final String hashPassword = hash.hash(user.getPassword());
-
-        final User userWithHashPassoword = new User(user);
-        userWithHashPassoword.setPassword(hashPassword);
-
-        return userWithHashPassoword;
-    }
-
-    public Messages validate(User user) {
+    private Messages validate(User user) {
         Messages messages = new EasyValidator()
             .validate(user)
             .toMessages();
@@ -49,5 +43,14 @@ public class CreateUserUseCase {
         messages.addAll(ValidatorUtil.validatePassword(user.getPassword()));
 
         return messages;
+    }
+
+    private User generateUserWithHashPassword(User user) {
+        final String hashPassword = hash.hash(user.getPassword());
+
+        final User userWithHashPassoword = new User(user);
+        userWithHashPassoword.setPassword(hashPassword);
+
+        return userWithHashPassoword;
     }
 }
