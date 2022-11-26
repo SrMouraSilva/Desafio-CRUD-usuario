@@ -8,6 +8,11 @@ public class Message {
     private final String message;
     private final List<Object> context;
 
+    private Message() {
+        message = null;
+        context = new LinkedList<>();
+    }
+
     public Message(String message) {
         this(message, new LinkedList<>());
     }

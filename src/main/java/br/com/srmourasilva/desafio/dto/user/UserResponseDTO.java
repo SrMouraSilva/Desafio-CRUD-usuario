@@ -4,6 +4,7 @@ import br.com.srmourasilva.desafio.model.Address;
 import br.com.srmourasilva.desafio.model.Profile;
 import br.com.srmourasilva.desafio.model.User;
 import br.com.srmourasilva.desafio.validation.ErrorMessage;
+import com.google.common.base.Objects;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.Email;
@@ -36,6 +37,8 @@ public class UserResponseDTO {
     @Schema(description="User's profile, permission level for resource access", /*allowableValues={Profile.Constant.USER, Profile.Constant.ADMIN},*/ defaultValue= Profile.Constant.USER, example=Profile.Constant.ADMIN)
     @NotNull(message=ErrorMessage.REQUIRED)
     private Profile profile;
+
+    public UserResponseDTO() {}
 
     public UserResponseDTO(User user) {
         this.id = user.getId();
@@ -92,5 +95,30 @@ public class UserResponseDTO {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserResponseDTO)) return false;
+        UserResponseDTO that = (UserResponseDTO) o;
+        return Objects.equal(getId(), that.getId()) && Objects.equal(getFullName(), that.getFullName()) && Objects.equal(getEmail(), that.getEmail()) && Objects.equal(getPhone(), that.getPhone()) && Objects.equal(getAddress(), that.getAddress()) && getProfile() == that.getProfile();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId(), getFullName(), getEmail(), getPhone(), getAddress(), getProfile());
+    }
+
+    @Override
+    public String toString() {
+        return "UserResponseDTO{" +
+                "id='" + id + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address=" + address +
+                ", profile=" + profile +
+                '}';
     }
 }

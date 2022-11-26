@@ -12,7 +12,7 @@ public class ValidatorUtil {
         boolean valid = Pattern.compile(PasswordRegex.PASSWORD).matcher(password).matches();
 
         if (!valid) {
-            messages.add(PASSWORD, messages);
+            messages.add(PASSWORD);
         }
 
         return messages;

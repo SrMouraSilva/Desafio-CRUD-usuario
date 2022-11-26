@@ -4,6 +4,8 @@ package br.com.srmourasilva.desafio.test.validation;
 import br.com.srmourasilva.desafio.validation.ValidatorUtil;
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.Collectors;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,6 +22,12 @@ public class ValidatorUtilTest {
         String notVerifiedSpecialChar = "1aA¬";
 
         assertTrue(ValidatorUtil.validatePassword(valid).isEmpty());
+        // Expected not include the password into error
+        assertFalse(
+            ValidatorUtil.validatePassword(valid).getMessages()
+                .stream().map(it -> it.getContext().stream()).collect(Collectors.toList())
+                .stream().anyMatch(it -> it.equals(valid))
+        );
 
         assertFalse(ValidatorUtil.validatePassword(missingNumber).isEmpty());
         assertFalse(ValidatorUtil.validatePassword(missingSmallerChar).isEmpty());

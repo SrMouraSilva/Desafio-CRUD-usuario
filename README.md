@@ -15,8 +15,12 @@ A documentação foi disponibilizada para consulta por meio de dois endereços
  * [ ] Funcionalidades: Autenticação e gerenciamento de usuários
  * [ ] Autenticação com e-mail e senha
  * [ ] Operações: `CRUD` para dados de um usuário de sistema
-   * [x] Atributos esperados: id, nome, email, senha, endereço, telefone, perfil
-   * [ ] Acesso aos recursos: pesquisa com filtros, paginação e ordenação dos dados;
+   * [x] Cadastro de usuário  
+     * [x] Atributos esperados: id, nome, email, senha, endereço, telefone, perfil
+   * [ ] Busca de usuários
+     * [ ] pesquisa com filtros, paginação e ordenação dos dados;
+   * [ ] Edição de usuário
+   * [ ] Exclusão de usuário
  * [ ] Autorização
    * [ ] Dois perfis: administrativo (`ADMIN`) e usuário padrão (`USER`);
    * [ ] Os recursos devem estar protegidos para que apenas usuários autenticados tenham acesso;
@@ -25,23 +29,27 @@ A documentação foi disponibilizada para consulta por meio de dois endereços
 
 ### Requisitos não funcionais
 
- * [ ] Disponibilização do código em repositório de código aberto (Github);
+ * [x] Disponibilização do código em repositório de código aberto (Github);
  * [ ] Tecnologias
    * [x] Spring Boot;
    * [ ] Spring Security;
-   * [ ] MongoDB;
+   * [x] MongoDB;
  * [ ] Cobertura de testes;
  * [ ] Build de container em imagem docker;
  * [ ] YAML para Kubernetes;
  * [ ] Reprodutibilidade: Documentação do processo de geração de imagem e de execução;
 
-## Outras informações
+### Outras restrições
 
- * [ ] Java 8;
- * [ ] Spring Boot 2.x.
+ * [x] Java 8;
+ * [x] Spring Boot 2.x.
 
 ## Pontos de melhoria
 
+Como evolução desse projeto, sugere-se:
+
  * [ ] Spring Boot 3 com Java 17 ou Kotlin;
  * [ ] Criação de JREs com o mínimo necessário (necessário Java >= 9);
- * [ ] Integração com IdP externa, como o Keycloak, o Amazon Cognito ou o Google Identity Provider.
+ * [ ] Autenticação:
+   * [ ] OpenID Connect 1.0 por meio do [Spring Authorization Server](https://spring.io/projects/spring-authorization-server) (necessário Spring Boot 3);
+   * [ ] Ou integração com IdP externa, como o Keycloak, o Amazon Cognito ou o Google Identity Provider.

@@ -35,6 +35,8 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-security:1.6.13")
 	implementation("org.springdoc:springdoc-openapi-data-rest:1.6.13")
 
+	implementation("org.springframework.boot:spring-boot-starter-webflux") { because("WebClient and WebTestClient") }
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.testcontainers:junit-jupiter")

@@ -19,8 +19,8 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/user")
-@Tag(name="User", description="Information related to user")
+@RequestMapping("/users")
+@Tag(name="Users", description="Information related to user")
 @Validated
 public class UserController {
 

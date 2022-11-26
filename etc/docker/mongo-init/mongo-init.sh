@@ -1,5 +1,6 @@
 set -e
 
+# mongosh: for mongo version 6
 mongosh <<EOF
 use $MONGO_INITDB_DATABASE
 

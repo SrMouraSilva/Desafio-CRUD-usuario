@@ -30,7 +30,7 @@ public class Messages {
     }
 
     public void addAll(Messages messages) {
-        this.messages.addAll(messages.messages);
+        this.messages.addAll(messages.getMessages());
     }
 
     public boolean isEmpty() {
