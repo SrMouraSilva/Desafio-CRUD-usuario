@@ -1,7 +1,9 @@
 package br.com.srmourasilva.desafio.model;
 
 import br.com.srmourasilva.desafio.validation.ErrorMessage;
+import br.com.srmourasilva.desafio.validation.regex.PasswordRegex;
 import com.google.common.base.Objects;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -13,8 +15,10 @@ public class User {
         public static final int PASSWORD_MIN_SIZE = 6;
     }
 
+    @Schema(hidden=true)
     private String id;
 
+    @Schema(description="Full name (given name AND family name)", example="Rachel de Queiroz")
     @NotNull(message=ErrorMessage.REQUIRED)
     @Size(min=3, message=ErrorMessage.MIN_SIZE)
     private String fullName;
@@ -22,6 +26,7 @@ public class User {
     /**
      * User email. Used as login/username
      */
+    @Schema(description="User's email", example="rachel.queiroz@gmail.com")
     @NotNull(message=ErrorMessage.REQUIRED)
     @Email(message=ErrorMessage.EMAIL)
     private String email;
@@ -29,16 +34,20 @@ public class User {
     /**
      * Password encoded as `argon2id`
      */
+    @Schema(description="User's password", example="S3cretP@ssword", pattern=PasswordRegex.PASSWORD)
     @NotNull(message=ErrorMessage.REQUIRED)
     @Size(min=Constraints.PASSWORD_MIN_SIZE, message=ErrorMessage.MIN_SIZE)
     private String password;
 
+    @Schema(description="Phone number. Preferable with Country code", example="+55 85 9 8765 4321")
     @Size(min=4, message=ErrorMessage.MIN_SIZE)
     private String phone;
 
+    @Schema(description="Address where user lives")
     @NotNull(message=ErrorMessage.REQUIRED)
     private Address address;
 
+    @Schema(description="User's profile, permission level for resource access", /*allowableValues={Profile.Constant.USER, Profile.Constant.ADMIN},*/ defaultValue=Profile.Constant.USER, example=Profile.Constant.ADMIN)
     @NotNull(message=ErrorMessage.REQUIRED)
     private Profile profile = Profile.USER;
 

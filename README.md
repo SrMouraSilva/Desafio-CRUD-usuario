@@ -4,7 +4,13 @@
 
 Desenvolver um web-service para gerenciamento de autenticação de usuários.
 
-## Requisitos funcionais
+## Organização do projeto
+
+A documentação foi disponibilizada para consulta por meio de dois endereços 
+ * Redoc: http://localhost:8080/documentation/index.html
+ * Swagger-ui: http://localhost:8080/documentation/swagger-ui/index.html
+
+### Requisitos funcionais
 
  * [ ] Funcionalidades: Autenticação e gerenciamento de usuários
  * [ ] Autenticação com e-mail e senha
@@ -17,7 +23,7 @@ Desenvolver um web-service para gerenciamento de autenticação de usuários.
      * [ ] Adminstrador pode criar, editar e remover usuários;
      * [ ] Usuário padrão pode buscar os dados do usuário.
 
-## Requisitos não funcionais
+### Requisitos não funcionais
 
  * [ ] Disponibilização do código em repositório de código aberto (Github);
  * [ ] Tecnologias
@@ -37,4 +43,5 @@ Desenvolver um web-service para gerenciamento de autenticação de usuários.
 ## Pontos de melhoria
 
  * [ ] Spring Boot 3 com Java 17 ou Kotlin;
- * [ ] Criação de JREs com o mínimo necessário (necessário Java >= 9).
+ * [ ] Criação de JREs com o mínimo necessário (necessário Java >= 9);
+ * [ ] Integração com IdP externa, como o Keycloak, o Amazon Cognito ou o Google Identity Provider.

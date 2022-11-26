@@ -2,18 +2,19 @@ package br.com.srmourasilva.desafio.model;
 
 import br.com.srmourasilva.desafio.validation.ErrorMessage;
 import com.google.common.base.Objects;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class Address {
+
+    @Schema(description="Country name. Preferable follows ISO 3166", example="Brazil")
     @NotNull(message=ErrorMessage.REQUIRED)
     @Size(min=4, message=ErrorMessage.MIN_SIZE)
     private String country;
 
-    /**
-     * State or province
-     */
+    @Schema(description="State, territorie or province", example="Ceará")
     @NotNull(message=ErrorMessage.REQUIRED)
     @Size(min=3, message=ErrorMessage.MIN_SIZE)
     private String state;

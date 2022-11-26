@@ -27,9 +27,10 @@ dependencies {
 		because("Hashing password in argon2id format")
 	}
 
-	implementation("org.springdoc:springdoc-openapi-webmvc-core:1.6.13")
-	implementation("org.springdoc:springdoc-openapi-data-rest:1.6.13")
+	//implementation("org.springdoc:springdoc-openapi-webmvc-core:1.6.13") { because("Without Swagger UI") }
+	implementation("org.springdoc:springdoc-openapi-ui:1.6.13") { because("With Swagger UI") }
 	implementation("org.springdoc:springdoc-openapi-security:1.6.13")
+	implementation("org.springdoc:springdoc-openapi-data-rest:1.6.13")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")

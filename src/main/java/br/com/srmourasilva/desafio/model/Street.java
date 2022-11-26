@@ -3,23 +3,29 @@ package br.com.srmourasilva.desafio.model;
 import br.com.srmourasilva.desafio.validation.annotation.NotBlankNullable;
 import br.com.srmourasilva.desafio.validation.ErrorMessage;
 import com.google.common.base.Objects;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class Street {
+
+    @Schema(description="Zip code or postcode", example="60521-025")
     @NotNull(message=ErrorMessage.REQUIRED)
     @Size(min=4, message=ErrorMessage.MIN_SIZE)
     private String zipCode;
 
+    @Schema(description="Name of the street", example="Rua Antônio Ivo")
     @NotNull(message=ErrorMessage.REQUIRED)
     @NotBlankNullable
     private String name;
 
+    @Schema(description="Number. `null` if it isn't applicable", example="290")
     @Min(value=1, message=ErrorMessage.POSITIVE)
     private Integer number;
 
+    @Schema(description="Complement. `null` if it isn't applicable", example="A")
     @NotBlankNullable
     private String complement;
 

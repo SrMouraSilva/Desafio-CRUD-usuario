@@ -5,3 +5,6 @@ spring.data.mongodb:
   database: ${MONGODB_DATABASE:desafio}
   username: ${MONGODB_USERNAME:admin}
   password: ${MONGODB_PASSWORD:admin}
+
+springdoc.swagger-ui:
+    path: /documentation/swagger-ui.html
