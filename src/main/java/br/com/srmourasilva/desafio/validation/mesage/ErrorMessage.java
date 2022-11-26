@@ -1,4 +1,4 @@
-package br.com.srmourasilva.desafio.validation;
+package br.com.srmourasilva.desafio.validation.mesage;
 
 public class ErrorMessage {
     public static final String REQUIRED = "form.field.required";

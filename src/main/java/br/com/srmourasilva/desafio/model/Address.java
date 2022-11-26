@@ -1,6 +1,6 @@
 package br.com.srmourasilva.desafio.model;
 
-import br.com.srmourasilva.desafio.validation.ErrorMessage;
+import br.com.srmourasilva.desafio.validation.mesage.ErrorMessage;
 import com.google.common.base.Objects;
 import io.swagger.v3.oas.annotations.media.Schema;
 

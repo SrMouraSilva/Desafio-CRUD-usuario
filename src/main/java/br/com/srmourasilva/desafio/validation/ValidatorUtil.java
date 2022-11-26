@@ -4,7 +4,7 @@ import br.com.srmourasilva.desafio.validation.regex.PasswordRegex;
 
 import java.util.regex.Pattern;
 
-import static br.com.srmourasilva.desafio.usecase.user.UserMessage.PASSWORD;
+import static br.com.srmourasilva.desafio.validation.mesage.UserMessage.PASSWORD;
 
 public class ValidatorUtil {
     public static Messages validatePassword(String password) {

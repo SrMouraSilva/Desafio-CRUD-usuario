@@ -1,6 +1,7 @@
 package br.com.srmourasilva.desafio.config;
 
 import br.com.srmourasilva.desafio.dto.api.ApiError;
+import br.com.srmourasilva.desafio.exception.NotFoundException;
 import br.com.srmourasilva.desafio.exception.ValidationException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -15,6 +16,17 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Order(Ordered.HIGHEST_PRECEDENCE+1)
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(NotFoundException.class)
+    protected ResponseEntity<Object> handle(NotFoundException ex) {
+        ApiError error = new ApiError(
+            HttpStatus.NOT_FOUND,
+            "Validation error",
+            ex.getMessages().getMessages()
+        );
+
+        return dispatch(error);
+    }
 
     @ExceptionHandler(ValidationException.class)
     protected ResponseEntity<Object> handle(ValidationException ex) {

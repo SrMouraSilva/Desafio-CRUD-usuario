@@ -3,9 +3,10 @@ package br.com.srmourasilva.desafio.test.controller;
 import br.com.srmourasilva.desafio.config.MongoContainerSetup;
 import br.com.srmourasilva.desafio.dto.api.ApiError;
 import br.com.srmourasilva.desafio.dto.user.UserResponseDTO;
+import br.com.srmourasilva.desafio.model.Profile;
 import br.com.srmourasilva.desafio.model.User;
 import br.com.srmourasilva.desafio.sample.SampleModel;
-import br.com.srmourasilva.desafio.usecase.user.UserMessage;
+import br.com.srmourasilva.desafio.validation.mesage.UserMessage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,7 +39,9 @@ public class UserControllerTest {
 
         user.setEmail(UUID.randomUUID()+"@gmail.com");
 
-        assertIsValidCreatedUser(createUser(user), user);
+        UserResponseDTO userDTO = assertIsValidCreatedUser(createUser(user), user).returnResult().getResponseBody();
+
+        deleteUser(userDTO);
     }
 
     @Test
@@ -76,6 +79,64 @@ public class UserControllerTest {
         );
     }
 
+    @Test
+    public void findUsers() {
+        User anaCatarina = SampleModel.sampleUser();
+        anaCatarina.setFullName("Ana Catarina");
+        anaCatarina.setEmail("ana.catarina@example.com");
+        anaCatarina.setProfile(Profile.ADMIN);
+
+        User irmaoDoJorel = SampleModel.sampleUser();
+        irmaoDoJorel.setFullName("Irmão do Jorel");
+        irmaoDoJorel.setEmail("juliano.enrico@example.com");
+        irmaoDoJorel.setProfile(Profile.USER);
+
+        UserResponseDTO anaCatarinaDTO = assertIsValidCreatedUser(createUser(anaCatarina), anaCatarina).returnResult().getResponseBody();
+        UserResponseDTO irmaoDoJorelDTO = assertIsValidCreatedUser(createUser(irmaoDoJorel), irmaoDoJorel).returnResult().getResponseBody();
+
+        webTestClient.get()
+            .uri("/users?profile="+Profile.USER.name())
+            .exchange()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
+            .expectBody()
+            .jsonPath("$.numberOfElements").isEqualTo(1)
+            .jsonPath("$.content[0].id").isNotEmpty()
+            .jsonPath("$.content[0].fullName").isEqualTo(irmaoDoJorel.getFullName())
+        ;
+
+        deleteUser(anaCatarinaDTO);
+        deleteUser(irmaoDoJorelDTO);
+    }
+
+    @Test
+    public void findUsersById() {
+        User anaCatarina = SampleModel.sampleUser();
+        anaCatarina.setFullName("Ana Catarina");
+        anaCatarina.setEmail("ana.catarina@example.com");
+        anaCatarina.setProfile(Profile.ADMIN);
+
+        User irmaoDoJorel = SampleModel.sampleUser();
+        irmaoDoJorel.setFullName("Irmão do Jorel");
+        irmaoDoJorel.setEmail("juliano.enrico@example.com");
+        irmaoDoJorel.setProfile(Profile.USER);
+
+        UserResponseDTO anaCatarinaDTO = assertIsValidCreatedUser(createUser(anaCatarina), anaCatarina).returnResult().getResponseBody();
+        UserResponseDTO irmaoDoJorelDTO = assertIsValidCreatedUser(createUser(irmaoDoJorel), irmaoDoJorel).returnResult().getResponseBody();
+
+        webTestClient.get()
+            .uri("/users/"+anaCatarinaDTO.getId())
+            .exchange()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
+            .expectBody()
+            .jsonPath("$.numberOfElements").isEqualTo(1)
+            .jsonPath("$.content[0].id").isNotEmpty()
+            .jsonPath("$.content[0]").isEqualTo(anaCatarinaDTO)
+        ;
+
+        deleteUser(anaCatarinaDTO);
+        deleteUser(irmaoDoJorelDTO);
+    }
+
     private WebTestClient.ResponseSpec createUser(User user) {
         return webTestClient.post()
                 .uri("/users")
@@ -84,8 +145,14 @@ public class UserControllerTest {
                 .exchange();
     }
 
-    private void assertIsValidCreatedUser(WebTestClient.ResponseSpec spec, User user) {
-        spec.expectStatus().isCreated()
+    private WebTestClient.ResponseSpec deleteUser(UserResponseDTO user) {
+        return webTestClient.delete()
+                .uri("/users/"+user.getId())
+                .exchange();
+    }
+
+    private WebTestClient.BodySpec<UserResponseDTO, ?> assertIsValidCreatedUser(WebTestClient.ResponseSpec spec, User user) {
+        return spec.expectStatus().isCreated()
             .expectHeader().contentType(MediaType.APPLICATION_JSON)
             .expectBody(UserResponseDTO.class)
             .consumeWith( it -> {

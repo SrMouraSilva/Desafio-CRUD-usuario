@@ -17,8 +17,8 @@ A documentação foi disponibilizada para consulta por meio de dois endereços
  * [ ] Operações: `CRUD` para dados de um usuário de sistema
    * [x] Cadastro de usuário  
      * [x] Atributos esperados: id, nome, email, senha, endereço, telefone, perfil
-   * [ ] Busca de usuários
-     * [ ] pesquisa com filtros, paginação e ordenação dos dados;
+   * [x] Busca de usuários
+     * [x] pesquisa com filtros, paginação e ordenação dos dados;
    * [ ] Edição de usuário
    * [ ] Exclusão de usuário
  * [ ] Autorização

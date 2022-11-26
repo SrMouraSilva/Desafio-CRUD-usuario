@@ -3,7 +3,7 @@ package br.com.srmourasilva.desafio.test.model;
 import br.com.srmourasilva.desafio.model.Street;
 import br.com.srmourasilva.desafio.sample.SampleModel;
 import br.com.srmourasilva.desafio.validation.EasyValidator;
-import br.com.srmourasilva.desafio.validation.ErrorMessage;
+import br.com.srmourasilva.desafio.validation.mesage.ErrorMessage;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

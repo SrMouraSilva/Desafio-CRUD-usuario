@@ -8,7 +8,7 @@ import br.com.srmourasilva.desafio.validation.EasyValidator;
 import br.com.srmourasilva.desafio.validation.Messages;
 import br.com.srmourasilva.desafio.validation.ValidatorUtil;
 
-import static br.com.srmourasilva.desafio.usecase.user.UserMessage.EMAIL_ALREADY_IN_USE;
+import static br.com.srmourasilva.desafio.validation.mesage.UserMessage.EMAIL_ALREADY_IN_USE;
 
 public class CreateUserUseCase {
 

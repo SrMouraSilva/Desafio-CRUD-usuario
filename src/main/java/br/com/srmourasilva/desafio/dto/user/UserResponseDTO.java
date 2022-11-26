@@ -3,7 +3,7 @@ package br.com.srmourasilva.desafio.dto.user;
 import br.com.srmourasilva.desafio.model.Address;
 import br.com.srmourasilva.desafio.model.Profile;
 import br.com.srmourasilva.desafio.model.User;
-import br.com.srmourasilva.desafio.validation.ErrorMessage;
+import br.com.srmourasilva.desafio.validation.mesage.ErrorMessage;
 import com.google.common.base.Objects;
 import io.swagger.v3.oas.annotations.media.Schema;
 

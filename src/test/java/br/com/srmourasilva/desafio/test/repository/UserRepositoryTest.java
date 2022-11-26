@@ -8,6 +8,7 @@ import br.com.srmourasilva.desafio.repository.UserRepository;
 import br.com.srmourasilva.desafio.sample.SampleModel;
 import br.com.srmourasilva.desafio.usecase.user.filter.FindUserFilter;
 import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
@@ -25,6 +26,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserRepositoryTest {
     @Autowired
     private UserRepository repository;
+
+    @AfterEach
+    void cleanUp() {
+        repository.deleteAll();
+    }
 
     @Test
     public void existsEmail() {
