@@ -1,0 +1,5 @@
+@webservice = {{$dotenv WEB_SERVICE}}
+
+GET {{webservice}}/users/?id=1&id=638223636602204fff0d34de HTTP/1.1
+#Authorization: Bearer {{token}}
+content-type: application/json
