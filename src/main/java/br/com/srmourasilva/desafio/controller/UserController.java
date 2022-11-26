@@ -1,7 +1,7 @@
 package br.com.srmourasilva.desafio.controller;
 
-import br.com.srmourasilva.desafio.model.User;
 import br.com.srmourasilva.desafio.dto.UserResponseDTO;
+import br.com.srmourasilva.desafio.model.User;
 import br.com.srmourasilva.desafio.validation.regex.PasswordRegex;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -37,6 +37,7 @@ public class UserController {
     public UserResponseDTO createUser(
         @RequestBody @Valid User user
     ) {
+        //CreateUserUseCase()
         return new UserResponseDTO();
     }
 }

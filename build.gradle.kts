@@ -15,18 +15,21 @@ repositories {
 extra["testcontainersVersion"] = "1.17.6"
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 
+	// Security
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.bouncycastle:bcpkix-jdk18on:1.72") { because("Spring Security Crypo - Argon2") }
+
+	// Database
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
+	// Utils
 	implementation("com.google.guava:guava:31.1-jre")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 
-	implementation("de.mkammerer:argon2-jvm:2.11") {
-		because("Hashing password in argon2id format")
-	}
-
+	// Documentation
 	//implementation("org.springdoc:springdoc-openapi-webmvc-core:1.6.13") { because("Without Swagger UI") }
 	implementation("org.springdoc:springdoc-openapi-ui:1.6.13") { because("With Swagger UI") }
 	implementation("org.springdoc:springdoc-openapi-security:1.6.13")
