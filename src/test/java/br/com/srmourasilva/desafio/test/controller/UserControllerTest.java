@@ -3,7 +3,7 @@ package br.com.srmourasilva.desafio.test.controller;
 import br.com.srmourasilva.desafio.config.MongoContainerSetup;
 import br.com.srmourasilva.desafio.config.security.JwtService;
 import br.com.srmourasilva.desafio.config.security.UserDetailsImpl;
-import br.com.srmourasilva.desafio.dto.api.ApiError;
+import br.com.srmourasilva.desafio.dto.api.ApiErrorDTO;
 import br.com.srmourasilva.desafio.dto.user.UserResponseDTO;
 import br.com.srmourasilva.desafio.dto.user.UserUpdateRequestDTO;
 import br.com.srmourasilva.desafio.model.Profile;
@@ -317,13 +317,13 @@ public class UserControllerTest {
     private void assertIsBadRequest(WebTestClient.ResponseSpec spec, String message) {
         spec.expectStatus().isBadRequest()
             .expectHeader().contentType(MediaType.APPLICATION_JSON)
-            .expectBody(ApiError.class)
+            .expectBody(ApiErrorDTO.class)
             .consumeWith( it -> {
                 assertTrue(existsMessage(it, message));
             });
     }
 
-    private static boolean existsMessage(EntityExchangeResult<ApiError> result, String message) {
+    private static boolean existsMessage(EntityExchangeResult<ApiErrorDTO> result, String message) {
         return result.getResponseBody().getDetails().stream().anyMatch(
             it -> it.getMessage().equals(message)
         );
