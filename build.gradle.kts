@@ -36,6 +36,8 @@ dependencies {
 
 	implementation("org.springframework.boot:spring-boot-starter-webflux") { because("WebClient and WebTestClient") }
 
+	implementation("org.openapitools:jackson-databind-nullable:0.2.4") { because("Patch updates") }
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.testcontainers:junit-jupiter")

@@ -49,7 +49,7 @@ public class User {
     @NotNull(message=ErrorMessage.REQUIRED)
     private Address address;
 
-    @Schema(description="User's profile, permission level for resource access", /*allowableValues={Profile.Constant.USER, Profile.Constant.ADMIN},*/ defaultValue=Profile.Constant.USER, example=Profile.Constant.ADMIN)
+    @Schema(description="User's profile, permission level for resource access", defaultValue=Profile.Constant.USER, example=Profile.Constant.ADMIN)
     @NotNull(message=ErrorMessage.REQUIRED)
     private Profile profile = Profile.USER;
 

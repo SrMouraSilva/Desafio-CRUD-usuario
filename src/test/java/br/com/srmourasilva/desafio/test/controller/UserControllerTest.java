@@ -3,14 +3,18 @@ package br.com.srmourasilva.desafio.test.controller;
 import br.com.srmourasilva.desafio.config.MongoContainerSetup;
 import br.com.srmourasilva.desafio.dto.api.ApiError;
 import br.com.srmourasilva.desafio.dto.user.UserResponseDTO;
+import br.com.srmourasilva.desafio.dto.user.UserUpdateRequestDTO;
 import br.com.srmourasilva.desafio.model.Profile;
 import br.com.srmourasilva.desafio.model.User;
+import br.com.srmourasilva.desafio.repository.UserRepository;
 import br.com.srmourasilva.desafio.sample.SampleModel;
 import br.com.srmourasilva.desafio.validation.mesage.UserMessage;
 import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,6 +37,14 @@ public class UserControllerTest {
 
     @Autowired
     protected WebTestClient webTestClient;
+
+    @Autowired
+    private UserRepository repository;
+
+    @AfterEach
+    void cleanUp() {
+        repository.deleteAll();
+    }
 
     @Test
     public void createNewUser() {
@@ -146,7 +158,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void deleteAUser() {
+    public void deleteUser() {
         User anaCatarina = SampleModel.sampleUser();
         anaCatarina.setFullName("Ana Catarina");
         anaCatarina.setEmail("ana.catarina@example.com");
@@ -160,6 +172,37 @@ public class UserControllerTest {
 
         findUser(anaCatarinaDTO)
             .expectStatus().isNotFound();
+    }
+
+    @Test
+    public void updateUser() {
+        User anaCatarina = SampleModel.sampleUser();
+        anaCatarina.setFullName("Ana Catarina");
+        anaCatarina.setEmail("ana.catarina.update_user@example.com");
+        anaCatarina.setProfile(Profile.ADMIN);
+
+        final String phone = "+55 0800 0000 0000";
+
+        UserUpdateRequestDTO body = new UserUpdateRequestDTO();
+        body.setPhone(JsonNullable.of(phone));
+
+        UserResponseDTO anaCatarinaDTO = assertIsValidCreatedUser(createUser(anaCatarina), anaCatarina).returnResult().getResponseBody();
+
+        assertNotEquals(phone, anaCatarina.getPhone());
+
+        webTestClient.patch()
+            .uri("/users/"+anaCatarinaDTO.getId())
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(body)
+            .exchange()
+            .expectStatus().isOk()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
+            .expectBody(UserResponseDTO.class)
+            .consumeWith( it -> {
+                assertEquals(phone, it.getResponseBody().getPhone());
+            });
+
+        deleteUser(anaCatarinaDTO);
     }
 
     private WebTestClient.ResponseSpec createUser(User user) {
@@ -178,7 +221,8 @@ public class UserControllerTest {
     }
 
     private WebTestClient.BodySpec<UserResponseDTO, ?> assertIsValidCreatedUser(WebTestClient.ResponseSpec spec, User user) {
-        return spec.expectStatus().isCreated()
+        return spec
+            .expectStatus().isCreated()
             .expectHeader().contentType(MediaType.APPLICATION_JSON)
             .expectBody(UserResponseDTO.class)
             .consumeWith( it -> {

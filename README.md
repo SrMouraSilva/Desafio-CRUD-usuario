@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Desenvolver um web-service para gerenciamento de autenticação de usuários.
+Desenvolver um web-service para gerenciamento de usuários e autenticação.
 
 ## Organização do projeto
 
@@ -14,12 +14,12 @@ A documentação foi disponibilizada para consulta por meio de dois endereços
 
  * [ ] Funcionalidades: Autenticação e gerenciamento de usuários
  * [ ] Autenticação com e-mail e senha
- * [ ] Operações: `CRUD` para dados de um usuário de sistema
+ * [x] Operações: `CRUD` para dados de um usuário de sistema
    * [x] Cadastro de usuário  
      * [x] Atributos esperados: id, nome, email, senha, endereço, telefone, perfil
    * [x] Busca de usuários
      * [x] pesquisa com filtros, paginação e ordenação dos dados;
-   * [ ] Edição de usuário
+   * [x] Edição de usuário
    * [x] Exclusão de usuário
  * [ ] Autorização
    * [ ] Dois perfis: administrativo (`ADMIN`) e usuário padrão (`USER`);
@@ -38,6 +38,13 @@ A documentação foi disponibilizada para consulta por meio de dois endereços
  * [ ] Build de container em imagem docker;
  * [ ] YAML para Kubernetes;
  * [ ] Reprodutibilidade: Documentação do processo de geração de imagem e de execução;
+
+### Adicionais
+
+Além do solicitado, os seguintes pontos complementares foram incluídos:
+
+ * [x] Documentação com o Redoc;
+ * [x] Testes de integração.
 
 ### Outras restrições
 
