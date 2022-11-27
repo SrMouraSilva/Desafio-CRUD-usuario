@@ -10,4 +10,8 @@ public class Argon2HashGenerator implements HashGenerator {
     public String hash(String password) {
         return encoder.encode(password);
     }
+
+    public Argon2PasswordEncoder getEncoder() {
+        return encoder;
+    }
 }
