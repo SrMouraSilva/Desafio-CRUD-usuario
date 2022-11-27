@@ -63,11 +63,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public AuthenticationManager configAuthRules(HttpSecurity http, PasswordEncoder encoder, UserDetailsServiceImpl userDetaislServices) throws Exception{
+    public AuthenticationManager configAuthRules(HttpSecurity http, PasswordEncoder encoder, UserDetailsService userDetaislServices) throws Exception{
         return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(userDetaislServices)
-                .passwordEncoder(encoder)
-                .and()
-                .build();
+            .userDetailsService(userDetaislServices)
+            .passwordEncoder(encoder)
+            .and()
+            .build();
     }
 }
