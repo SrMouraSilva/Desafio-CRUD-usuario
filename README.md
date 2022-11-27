@@ -107,7 +107,34 @@ docker run --rm --name crud -p 8080:8080 \
     ghcr.io/srmourasilva/desafio-crud-usuario:latest
 ```
 
-### Via Kubernetes
+### Via Kubernetes + docker compose
+
+Siga os passos para subir a aplicação no Kubernetes e o banco via docker compose.
+
+> TODO - Colocar também o banco no Kubernetes
+
+```bash
+# Passo 1 - Gerar artefato .jar
+# Gera em: build/libs/desafio-0.0.1-SNAPSHOT.jar
+./gradlew bootJar
+# Passo 2 - Fazer build da imagem
+docker build --file etc/docker/Dockerfile --tag ghcr.io/srmourasilva/desafio-crud-usuario:latest .
+# Passo 3 - Adicionar tag correspondente ao registry que o kubernetes irá utilizar
+# Aqui no exemplo, será o localhost:5000
+docker tag ghcr.io/srmourasilva/desafio-crud-usuario:latest localhost:5000/srmourasilva/desafio-crud-usuario:latest
+# Passo 4 - Enviar imagem para o registry
+docker push localhost:5000/srmourasilva/desafio-crud-usuario:latest .
+# Passo 1 - Subir banco de dados
+cd etc/docker
+docker compose up -d
+# Passo 6 - Atualizar o arquivo etc/docker/deployment.yaml
+# Altere o host do banco de dados
+nano etc/docker/deployment.yaml
+# Passo 7 - Subir aplicação
+kubectl -f apply deployment.yaml
+# Passo 8 - Faça um foward para ver a aplicação em execução
+kubectl port-forward svc/demo 8080:8080
+```
 
 ## Testes
 
