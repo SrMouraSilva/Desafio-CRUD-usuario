@@ -21,6 +21,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.bouncycastle:bcpkix-jdk18on:1.72") { because("Spring Security Crypo - Argon2") }
 
+	compileOnly("io.jsonwebtoken:jjwt-api:0.11.5") { because("Auth with JWT") }
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5") { because("Auth with JWT") }
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5") { because("Auth with JWT") }
+
 	// Database
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 

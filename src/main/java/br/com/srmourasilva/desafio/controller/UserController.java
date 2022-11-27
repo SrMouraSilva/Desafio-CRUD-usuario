@@ -3,6 +3,7 @@ package br.com.srmourasilva.desafio.controller;
 import br.com.srmourasilva.desafio.dto.user.UserResponseDTO;
 import br.com.srmourasilva.desafio.dto.user.UserUpdateRequestDTO;
 import br.com.srmourasilva.desafio.exception.NotFoundException;
+import br.com.srmourasilva.desafio.model.Profile;
 import br.com.srmourasilva.desafio.model.User;
 import br.com.srmourasilva.desafio.repository.UserRepository;
 import br.com.srmourasilva.desafio.usecase.user.CreateUserUseCase;
@@ -26,6 +27,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +49,7 @@ public class UserController {
     @Autowired
     private HashGenerator hash;
 
-    //@Secured(value=Profile.Constant.ADMIN)
+    @Secured("ROLE_"+Profile.Constant.ADMIN)
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(
         security = {@SecurityRequirement(name = "Basic")},
@@ -73,7 +75,7 @@ public class UserController {
         return useCase.createUser(user);
     }
 
-    //@Secured(value=Profile.Constant.USER)
+    @Secured(value={"ROLE_"+Profile.Constant.ADMIN, "ROLE_"+Profile.Constant.USER})
     @ResponseStatus(HttpStatus.OK)
     @Operation(
         security = {@SecurityRequirement(name = "Basic")},
@@ -94,7 +96,7 @@ public class UserController {
         return useCase.find(filter, pageable);
     }
 
-    //@Secured(value=Profile.Constant.USER)
+    @Secured(value={"ROLE_"+Profile.Constant.ADMIN, "ROLE_"+Profile.Constant.USER})
     @ResponseStatus(HttpStatus.OK)
     @Operation(
         security = {@SecurityRequirement(name = "Basic")},
@@ -123,7 +125,7 @@ public class UserController {
         return response.getContent().get(0);
     }
 
-    //@Secured(value=Profile.Constant.ADMIN)
+    @Secured(value="ROLE_"+Profile.Constant.ADMIN)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(
         security = {@SecurityRequirement(name = "Basic")},
@@ -138,13 +140,13 @@ public class UserController {
     public void delete(
         @PathVariable String id
     ) {
-        // FIXME - Verify that current user there trying to delete themself
+        // FIXME - Verify if current user is trying to delete themself
         DeleteUserUseCase useCase = new DeleteUserUseCase(repository);
 
         useCase.delete(id);
     }
 
-    //@Secured(value=Profile.Constant.ADMIN)
+    @Secured(value="ROLE_"+Profile.Constant.ADMIN)
     @ResponseStatus(HttpStatus.OK)
     @Operation(
         security = {@SecurityRequirement(name = "Basic")},

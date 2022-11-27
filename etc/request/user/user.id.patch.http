@@ -1,9 +1,21 @@
 @webservice = {{$dotenv WEB_SERVICE}}
+@username = {{$dotenv ADMIN_USERNAME}}
+@password = {{$dotenv ADMIN_PASSWORD}}
+
+
+###
+# @name auth
+POST {{webservice}}/auth
+Content-Type: application/x-www-form-urlencoded
+
+username={{username}}
+&password={{password}}
+
 
 ###
 # @name newUser
 POST {{webservice}}/users/ HTTP/1.1
-#Authorization: Bearer {{token}}
+Authorization: Bearer {{auth.response.body.id_token}}
 content-type: application/json
 
 {
@@ -28,13 +40,17 @@ content-type: application/json
 ###
 # Update user
 PATCH {{webservice}}/users/{{newUser.response.body.id}} HTTP/1.1
-#Authorization: Bearer {{token}}
+Authorization: Bearer {{auth.response.body.id_token}}
 content-type: application/json
 
 {
+    "fullName": "Rachel de Queiroz Filha",
+    "address": {
+        "state": "CE"
+    }
 }
 
 ###
 # Delete user
 DELETE {{webservice}}/users/{{newUser.response.body.id}} HTTP/1.1
-#Authorization: Bearer {{token}}
+Authorization: Bearer {{auth.response.body.id_token}}

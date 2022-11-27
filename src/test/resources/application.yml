@@ -3,3 +3,16 @@ spring.data.mongodb:
   database: ${MONGODB_DATABASE:test}
   username: ${MONGODB_USERNAME:test}
   password: ${MONGODB_PASSWORD:test}
+
+jwt:
+  # Audience:
+  #    With the generated token refers to
+  #    The application will reject the token if the token received contains
+  #    a different token
+  audience: desafio
+  # Time for token expiration in seconds
+  time: 3600
+  # String used for signing token
+  # See more in https://github.com/jwtk/jjwt#secretkey-formats
+  # TODO - Change to KeyPair (private/public keys)
+  secret: please_changeme

@@ -1,9 +1,21 @@
 @webservice = {{$dotenv WEB_SERVICE}}
+@username = {{$dotenv ADMIN_USERNAME}}
+@password = {{$dotenv ADMIN_PASSWORD}}
+
+
+###
+# @name auth
+POST {{webservice}}/auth
+Content-Type: application/x-www-form-urlencoded
+
+username={{username}}
+&password={{password}}
+
 
 ###
 # Bad request
-POST {{webservice}}/user/ HTTP/1.1
-#Authorization: Bearer {{token}}
+POST {{webservice}}/users/ HTTP/1.1
+Authorization: Bearer {{auth.response.body.id_token}}
 content-type: application/json
 
 {
@@ -13,7 +25,7 @@ content-type: application/json
 ###
 # New user
 POST {{webservice}}/users/ HTTP/1.1
-#Authorization: Bearer {{token}}
+Authorization: Bearer {{auth.response.body.id_token}}
 content-type: application/json
 
 {

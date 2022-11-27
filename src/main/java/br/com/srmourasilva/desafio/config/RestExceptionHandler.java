@@ -1,6 +1,7 @@
 package br.com.srmourasilva.desafio.config;
 
 import br.com.srmourasilva.desafio.dto.api.ApiError;
+import br.com.srmourasilva.desafio.exception.AuthenticationException;
 import br.com.srmourasilva.desafio.exception.NotFoundException;
 import br.com.srmourasilva.desafio.exception.ValidationException;
 import org.springframework.core.Ordered;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.LinkedList;
 
 
 @Order(Ordered.HIGHEST_PRECEDENCE+1)
@@ -34,6 +36,17 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             HttpStatus.BAD_REQUEST,
             "Validation error",
             ex.getMessages().getMessages()
+        );
+
+        return dispatch(error);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    protected ResponseEntity<Object> handle(AuthenticationException ex) {
+        ApiError error = new ApiError(
+            HttpStatus.UNAUTHORIZED,
+            ex.getMessage(),
+            new LinkedList<>()
         );
 
         return dispatch(error);
