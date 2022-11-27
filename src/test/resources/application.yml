@@ -1,0 +1,5 @@
+
+spring.data.mongodb:
+  database: ${MONGODB_DATABASE:test}
+  username: ${MONGODB_USERNAME:test}
+  password: ${MONGODB_PASSWORD:test}

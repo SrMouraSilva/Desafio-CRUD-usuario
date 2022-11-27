@@ -1,0 +1,35 @@
+@webservice = {{$dotenv WEB_SERVICE}}
+
+###
+# Bad request
+POST {{webservice}}/user/ HTTP/1.1
+#Authorization: Bearer {{token}}
+content-type: application/json
+
+{
+  "wrong_information": "wrong value",
+}
+
+###
+# New user
+POST {{webservice}}/users/ HTTP/1.1
+#Authorization: Bearer {{token}}
+content-type: application/json
+
+{
+    "fullName": "Rachel de Queiroz",
+    "email": "rachel.queiroz@gmail.com",
+    "password": "S3cretP@ssword",
+    "phone": "+55 85 9 8765 4321",
+    "address": {
+        "country": "Brazil",
+        "state": "Ceará",
+        "street": {
+            "zipCode": "60521-025",
+            "name": "Rua Antônio Ivo",
+            "number": 290,
+            "complement": "A"
+        }
+    },
+    "profile": "ADMIN"
+}

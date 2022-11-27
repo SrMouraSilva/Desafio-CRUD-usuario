@@ -1,0 +1,5 @@
+@webservice = {{$dotenv WEB_SERVICE}}
+
+GET {{webservice}}/users/?fullName=rachel&profile=ADMIN HTTP/1.1
+#Authorization: Bearer {{token}}
+content-type: application/json

@@ -1,0 +1,38 @@
+@webservice = {{$dotenv WEB_SERVICE}}
+
+###
+# @name newUser
+POST {{webservice}}/users/ HTTP/1.1
+#Authorization: Bearer {{token}}
+content-type: application/json
+
+{
+    "fullName": "Rachel de Queiroz",
+    "email": "rachel.queiroz.id.get@gmail.com",
+    "password": "S3cretP@ssword",
+    "phone": "+55 85 9 8765 4321",
+    "address": {
+        "country": "Brazil",
+        "state": "Ceará",
+        "street": {
+            "zipCode": "60521-025",
+            "name": "Rua Antônio Ivo",
+            "number": 290,
+            "complement": "A"
+        }
+    },
+    "profile": "ADMIN"
+}
+
+
+###
+# Find user
+GET {{webservice}}/users/{{newUser.response.body.id}} HTTP/1.1
+#Authorization: Bearer {{token}}
+content-type: application/json
+
+
+###
+# Delete user
+DELETE {{webservice}}/users/{{newUser.response.body.id}} HTTP/1.1
+#Authorization: Bearer {{token}}

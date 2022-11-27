@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users API</title>
+    <!-- needed for adaptive design -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
+
+    <!--
+    ReDoc doesn't change outer page styles
+    -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
+<div id="redoc-container">
+    <script>
+Redoc.init(
+    '../v3/api-docs',
+    {
+        expandResponses: "200,201",
+        "theme": {
+            "menu": {
+                "backgroundColor": "#f2f2f2",
+            },
+            "typography": {
+                "fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Roboto', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+                "color": "#000"
+            },
+        },
+    },
+
+    document.getElementById('redoc-container')
+);
+</script>
+</div>
+</body>
+</html>
