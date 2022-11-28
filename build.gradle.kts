@@ -46,6 +46,7 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:mongodb")
+	testImplementation("com.tngtech.archunit:archunit-junit5:1.0.0")
 }
 
 dependencyManagement {

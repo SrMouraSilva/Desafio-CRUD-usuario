@@ -1,6 +1,6 @@
 package br.com.srmourasilva.desafio.config;
 
-import br.com.srmourasilva.desafio.dto.api.ApiError;
+import br.com.srmourasilva.desafio.dto.api.ApiErrorDTO;
 import br.com.srmourasilva.desafio.exception.AuthenticationException;
 import br.com.srmourasilva.desafio.exception.NotFoundException;
 import br.com.srmourasilva.desafio.exception.ValidationException;
@@ -21,7 +21,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
     protected ResponseEntity<Object> handle(NotFoundException ex) {
-        ApiError error = new ApiError(
+        ApiErrorDTO error = new ApiErrorDTO(
             HttpStatus.NOT_FOUND,
             "Validation error",
             ex.getMessages().getMessages()
@@ -32,7 +32,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ValidationException.class)
     protected ResponseEntity<Object> handle(ValidationException ex) {
-        ApiError error = new ApiError(
+        ApiErrorDTO error = new ApiErrorDTO(
             HttpStatus.BAD_REQUEST,
             "Validation error",
             ex.getMessages().getMessages()
@@ -43,7 +43,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     protected ResponseEntity<Object> handle(AuthenticationException ex) {
-        ApiError error = new ApiError(
+        ApiErrorDTO error = new ApiErrorDTO(
             HttpStatus.UNAUTHORIZED,
             ex.getMessage(),
             new LinkedList<>()
@@ -52,7 +52,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return dispatch(error);
     }
 
-    private ResponseEntity<Object> dispatch(ApiError apiError) {
+    private ResponseEntity<Object> dispatch(ApiErrorDTO apiError) {
         return new ResponseEntity(apiError, apiError.getStatus());
     }
 }

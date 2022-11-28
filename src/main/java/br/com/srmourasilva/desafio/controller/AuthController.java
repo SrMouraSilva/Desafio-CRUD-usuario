@@ -1,7 +1,7 @@
 package br.com.srmourasilva.desafio.controller;
 
 import br.com.srmourasilva.desafio.config.security.JwtService;
-import br.com.srmourasilva.desafio.dto.auth.Credentials;
+import br.com.srmourasilva.desafio.dto.auth.CredentialsDTO;
 import br.com.srmourasilva.desafio.dto.auth.TokenResponseDTO;
 import br.com.srmourasilva.desafio.usecase.auth.AuthenticateUserUseCase;
 import br.com.srmourasilva.desafio.validation.mesage.ArchitectureMessage;
@@ -53,6 +53,6 @@ public class AuthController {
     ) {
         AuthenticateUserUseCase useCase = new AuthenticateUserUseCase(service, passwordEncoder, jwtService);
 
-        return useCase.authenticate(new Credentials(username, password));
+        return useCase.authenticate(new CredentialsDTO(username, password));
     }
 }
