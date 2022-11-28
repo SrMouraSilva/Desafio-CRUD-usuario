@@ -12,7 +12,13 @@ username={{username}}
 &password={{password}}
 
 ###
-#
-GET {{webservice}}/users/?fullName=rachel&profile=ADMIN HTTP/1.1
-Authorization: Bearer {{auth.response.body.id_token}}
+# Request all admin
+GET {{webservice}}/users/?profile=ADMIN HTTP/1.1
+Authorization: Bearer {{auth.response.body.access_token}}
+content-type: application/json
+
+###
+# Request all user with name contains 'an' order by name desc
+GET {{webservice}}/users/?fullName=an&profile=USER&sort=fullName,desc HTTP/1.1
+Authorization: Bearer {{auth.response.body.access_token}}
 content-type: application/json

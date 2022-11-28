@@ -13,10 +13,15 @@ para obter mais detalhes. Note que esses endpoints são todos protegidos, de for
 Usuário sem nível de administrador consegue buscar usuários.
 Usuário com nível administrativo possui também permissão para criar, editar e remover usuários.
 
+## Documentação
+
 Para maiores detalhes sobre os endpoints disponibilizados, suba a aplicação e acesse a documentação,
 acessível a partir dos seguintes endereços:
-* Redoc: http://localhost:8080/documentation/index.html
-* Swagger-ui: http://localhost:8080/documentation/swagger-ui/index.html
+
+ * Redoc: http://localhost:8080/documentation/index.html
+![Redoc](etc/docs/redoc.gif)
+ * Swagger-ui: http://localhost:8080/documentation/swagger-ui/index.html
+![Swagger-ui](etc/docs/swagger-ui.gif)
 
 ## Execução
 
@@ -158,8 +163,17 @@ de extensão `.http`.
 code etc/request
 ```
 
-Uma outra alternativa é utilizar o [Swagger-ui](http://localhost:8080/documentation/swagger-ui/index.html) 
-para testar os endpoints. 
+![REST Client](etc/docs/rest-client.gif)
+
+Outra alternativa seria utilizar o [Swagger-ui](http://localhost:8080/documentation/swagger-ui/index.html) 
+para testar os endpoints. Utilize as seguintes credenciais para testar:
+
+| Role    | Username | Password |
+|---------| --- | --- |
+| `ADMIN` | `admin@example.com` | `S3cretP@ssword` |
+| `USER`  | `daniellewilson@williams.com` | `S3cretP@ssword` |
+
+![Swagger-ui](etc/docs/swagger-ui-test.gif)
 
 ## Decisões de projeto
 
@@ -205,9 +219,9 @@ O principal motivador foi evitar que qualquer atualização necessitasse espefic
    * [x] Spring Security;
    * [x] MongoDB;
  * [x] Cobertura de testes;
- * [ ] Build de container em imagem docker;
- * [ ] YAML para Kubernetes;
- * [ ] Reprodutibilidade: Documentação do processo de geração de imagem e de execução;
+ * [x] Build de container em imagem docker;
+ * [x] YAML para Kubernetes;
+ * [x] Reprodutibilidade: Documentação do processo de geração de imagem e de execução;
 
 ### Adicionais
 
