@@ -14,7 +14,7 @@ username={{username}}
 ###
 # @name newUser
 POST {{webservice}}/users/ HTTP/1.1
-Authorization: Bearer {{auth.response.body.id_token}}
+Authorization: Bearer {{auth.response.body.access_token}}
 content-type: application/json
 
 {
@@ -39,11 +39,11 @@ content-type: application/json
 ###
 # Find user
 GET {{webservice}}/users/{{newUser.response.body.id}} HTTP/1.1
-Authorization: Bearer {{auth.response.body.id_token}}
+Authorization: Bearer {{auth.response.body.access_token}}
 content-type: application/json
 
 
 ###
 # Delete user
 DELETE {{webservice}}/users/{{newUser.response.body.id}} HTTP/1.1
-Authorization: Bearer {{auth.response.body.id_token}}
+Authorization: Bearer {{auth.response.body.access_token}}

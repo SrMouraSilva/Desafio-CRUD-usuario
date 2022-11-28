@@ -52,7 +52,7 @@ public class UserController {
     @Secured("ROLE_"+Profile.Constant.ADMIN)
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(
-        security = {@SecurityRequirement(name = "Basic")},
+        security = {@SecurityRequirement(name = "OIDC")},
         summary = "Create a new user",
         description = "Create a new user with email, password, and person information.\n\n" +
             "Password requirements:\n\n" +
@@ -78,7 +78,7 @@ public class UserController {
     @Secured(value={"ROLE_"+Profile.Constant.ADMIN, "ROLE_"+Profile.Constant.USER})
     @ResponseStatus(HttpStatus.OK)
     @Operation(
-        security = {@SecurityRequirement(name = "Basic")},
+        security = {@SecurityRequirement(name = "OIDC")},
         summary = "Find users",
         description = "Find users, according to the specified query parameters.",
         responses = {
@@ -99,7 +99,7 @@ public class UserController {
     @Secured(value={"ROLE_"+Profile.Constant.ADMIN, "ROLE_"+Profile.Constant.USER})
     @ResponseStatus(HttpStatus.OK)
     @Operation(
-        security = {@SecurityRequirement(name = "Basic")},
+        security = {@SecurityRequirement(name = "OIDC")},
         summary = "Get user information",
         description = "Get a user data by their unique identifier.",
         responses = {
@@ -128,7 +128,7 @@ public class UserController {
     @Secured(value="ROLE_"+Profile.Constant.ADMIN)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(
-        security = {@SecurityRequirement(name = "Basic")},
+        security = {@SecurityRequirement(name = "OIDC")},
         summary = "Delete a user",
         description = "Delete a user by their unique identifier.",
         responses = {
@@ -149,7 +149,7 @@ public class UserController {
     @Secured(value="ROLE_"+Profile.Constant.ADMIN)
     @ResponseStatus(HttpStatus.OK)
     @Operation(
-        security = {@SecurityRequirement(name = "Basic")},
+        security = {@SecurityRequirement(name = "OIDC")},
         summary = "Update a user",
         description = "Update the specified user by their id. Informs only the fields that is required to be update",
         responses = {
