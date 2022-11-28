@@ -43,7 +43,7 @@ import static org.mockito.Mockito.when;
 public class UserControllerTest {
 
     @Autowired
-    protected WebTestClient webTestClient;
+    private WebTestClient webTestClient;
 
     @Autowired
     private UserRepository repository;

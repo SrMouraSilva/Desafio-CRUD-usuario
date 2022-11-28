@@ -15,4 +15,4 @@ jwt:
   # String used for signing token
   # See more in https://github.com/jwtk/jjwt#secretkey-formats
   # TODO - Change to KeyPair (private/public keys)
-  secret: please_changeme
+  secret: please_changeme.9JOfm4jC6VrVbZ4f8HiTz6bSes6TYZ6ZA6PqJ2vxet7BtiKwo4B4EmvuxxKy7ck9ogowBWjqrxNv7hE7
