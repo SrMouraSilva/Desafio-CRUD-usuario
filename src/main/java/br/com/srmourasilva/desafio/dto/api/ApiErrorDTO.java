@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-public class ApiError {
+public class ApiErrorDTO {
     private final HttpStatus status;
 
     private final String message;
@@ -15,7 +15,7 @@ public class ApiError {
 
     private final OffsetDateTime timestamp = OffsetDateTime.now();
 
-    public ApiError(HttpStatus status, String message, List<Message> details) {
+    public ApiErrorDTO(HttpStatus status, String message, List<Message> details) {
         this.status = status;
         this.message = message;
         this.details = details;

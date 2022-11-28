@@ -1,7 +1,7 @@
 package br.com.srmourasilva.desafio.usecase.auth;
 
 import br.com.srmourasilva.desafio.config.security.JwtService;
-import br.com.srmourasilva.desafio.dto.auth.Credentials;
+import br.com.srmourasilva.desafio.dto.auth.CredentialsDTO;
 import br.com.srmourasilva.desafio.dto.auth.TokenResponseDTO;
 import br.com.srmourasilva.desafio.exception.AuthenticationException;
 import br.com.srmourasilva.desafio.exception.InvalidCredentialsException;
@@ -26,14 +26,14 @@ public class AuthenticateUserUseCase {
         this.jwtService = jwtService;
     }
 
-    public TokenResponseDTO authenticate(Credentials credentials) {
+    public TokenResponseDTO authenticate(CredentialsDTO credentials) {
         UserDetails userDetails = getAuthenticatedUserBy(credentials)
                 .orElseThrow(InvalidCredentialsException::new);
 
         return jwtService.newToken(userDetails);
     }
 
-    public Optional<UserDetails> getAuthenticatedUserBy(Credentials credentials) {
+    public Optional<UserDetails> getAuthenticatedUserBy(CredentialsDTO credentials) {
         UserDetails user = findUser(credentials);
 
         if (passwordEncoder.matches(credentials.getPassword(), user.getPassword()))
@@ -42,7 +42,7 @@ public class AuthenticateUserUseCase {
             return Optional.empty();
     }
 
-    private UserDetails findUser(Credentials credentials) {
+    private UserDetails findUser(CredentialsDTO credentials) {
         try {
             return service.loadUserByUsername(credentials.getUsername());
         } catch (UsernameNotFoundException e) {

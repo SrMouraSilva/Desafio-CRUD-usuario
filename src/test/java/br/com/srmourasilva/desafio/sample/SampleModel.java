@@ -7,6 +7,16 @@ import br.com.srmourasilva.desafio.model.User;
 
 public class SampleModel {
 
+    public static User sampleAuthUser(Profile profile) {
+        User user = SampleModel.sampleUser();
+
+        user.setFullName(profile.name());
+        user.setEmail(profile+"@test.com");
+        user.setProfile(profile);
+
+        return user;
+    }
+
     public static User sampleUser() {
         final User user = new User();
         user.setFullName("Rachel de Queiroz");

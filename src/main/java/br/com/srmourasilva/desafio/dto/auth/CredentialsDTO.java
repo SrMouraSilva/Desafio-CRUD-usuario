@@ -1,10 +1,10 @@
 package br.com.srmourasilva.desafio.dto.auth;
 
-public class Credentials {
+public class CredentialsDTO {
     private final String username;
     private final String password;
 
-    public Credentials(String username, String password) {
+    public CredentialsDTO(String username, String password) {
         this.username = username;
         this.password = password;
     }
