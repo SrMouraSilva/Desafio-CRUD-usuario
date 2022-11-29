@@ -1,3 +1,5 @@
+version: "3"
+
 services:
 
   mongo:
@@ -12,7 +14,7 @@ services:
       MONGO_INITDB_USER: desafio
       MONGO_INITDB_PWD: desafio
     volumes:
-      - ./mongo-init/:/docker-entrypoint-initdb.d/:ro
+      - ./mongo-init/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
       #- ./data/mongodb/data/db/:/data/db/
 
   mongo-express:
@@ -24,10 +26,3 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: admin
       ME_CONFIG_MONGODB_ADMINPASSWORD: admin
       ME_CONFIG_MONGODB_URL: mongodb://admin:admin@mongo:27017/
-
-  # webservice:
-  #   image: ghcr.io/srmourasilva/desafio-crud-usuario:latest
-  #   ports:
-  #     - 8008:8080
-  #   environment:
-  #     MONGODB_HOST: mongo

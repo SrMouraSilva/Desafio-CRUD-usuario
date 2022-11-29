@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert --verbose
+    kompose.version: 1.27.0 (b0ed6a2c9)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: webservice
+  name: webservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: webservice
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert --verbose
+        kompose.version: 1.27.0 (b0ed6a2c9)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: webservice
+    spec:
+      containers:
+        - env:
+            - name: MONGODB_HOST
+              value: mongo
+          image: localhost:5000/srmourasilva/desafio-crud-usuario:latest
+          name: webservice
+          ports:
+            - containerPort: 8080
+          resources: {}
+      restartPolicy: Always
+status: {}
