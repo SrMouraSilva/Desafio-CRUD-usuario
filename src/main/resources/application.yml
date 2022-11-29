@@ -33,3 +33,46 @@ logging:
       springframework.web: DEBUG
       springframework:
         security: DEBUG
+
+documentation:
+  description: |
+    Microservice for managing users and authentication.
+    
+    ## About Authentication and Authorization
+    
+    To access the protected endpoints, it's firstly necessary authenticate by informing
+    a valid `username` and `password` for [`auth` endpoint](#tag/Authentication/operation/authenticate).
+    
+    After an successfully call, the `auth` endpoint will returns an `access_token` valid about one hour.
+    Use it during requests for protected endpoints:
+    ```http
+    Authorization: Bearer {{access_token}}
+    ```
+
+    ## Sorting and Pagination
+    
+    Some of the services offer paging. You can define the page and the maximum amount of returned elements:
+
+    * `page=<value>`: Results page you want to retrieve `(0..N]`;
+    * `size=<value>`: Maximum number of records per page.
+
+    Example:
+
+    ```curl
+    wget 'http://localhost:8080/users?size=15&page=3'
+    ```
+
+    Some of the services support sorting. The pattern follows
+
+    ```
+    (sort=<parameter>,<order>)*
+    ```
+
+    * `<parameter>`: Parameter to be sorted;
+    * `<order>`: Order to apply: `asc` for ascending and `desc` for descending.
+
+    The applied order respects the order defined in the url. For example, in 
+    ```
+    http://localhost:8080/users?sort=fullName,desc&sort=email,desc
+    ```
+    descending order for `fullName` will be applied before `email`.

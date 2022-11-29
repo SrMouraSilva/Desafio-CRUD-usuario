@@ -1,5 +1,6 @@
 package br.com.srmourasilva.desafio.controller;
 
+import br.com.srmourasilva.desafio.dto.api.ApiErrorDTO;
 import br.com.srmourasilva.desafio.dto.user.UserResponseDTO;
 import br.com.srmourasilva.desafio.dto.user.UserUpdateRequestDTO;
 import br.com.srmourasilva.desafio.exception.NotFoundException;
@@ -18,6 +19,8 @@ import br.com.srmourasilva.desafio.validation.regex.PasswordRegex;
 import com.google.common.collect.Lists;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -54,7 +57,8 @@ public class UserController {
     @Operation(
         security = {@SecurityRequirement(name = "OIDC")},
         summary = "Create a new user",
-        description = "Create a new user with email, password, and person information.\n\n" +
+            description = "**Requires `"+Profile.Constant.ADMIN+"` profile**.\n\n" +
+            "Create a new user with email, password, and person information.\n\n" +
             "Password requirements:\n\n" +
             " * Mininum lenght: " + User.Constraints.PASSWORD_MIN_SIZE + "\n" +
             " * Contains at least one lower alphabet character;\n" +
@@ -63,7 +67,7 @@ public class UserController {
             " * Contains at least one of the following special characters `"+ PasswordRegex.SPECIAL_CHARACTER +"`\n",
         responses = {
             @ApiResponse(responseCode = "201", description = "New user successfully created"),
-            @ApiResponse(responseCode = "400", description = EMAIL_ALREADY_IN_USE + ", " + PASSWORD)
+            @ApiResponse(responseCode = "400", description = EMAIL_ALREADY_IN_USE + ", " + PASSWORD, content={@Content(schema=@Schema(implementation=ApiErrorDTO.class))})
         }
     )
     @PostMapping(value="", produces={MediaType.APPLICATION_JSON_VALUE}, consumes={MediaType.APPLICATION_JSON_VALUE})
@@ -80,7 +84,8 @@ public class UserController {
     @Operation(
         security = {@SecurityRequirement(name = "OIDC")},
         summary = "Find users",
-        description = "Find users, according to the specified query parameters.",
+        description = "**Requires `"+Profile.Constant.USER+"` or `"+Profile.Constant.ADMIN+"` profile**.\n\n" +
+            "Find users, according to the specified query parameters.",
         responses = {
             @ApiResponse(responseCode = "200", description = "Users found")
         }
@@ -101,10 +106,11 @@ public class UserController {
     @Operation(
         security = {@SecurityRequirement(name = "OIDC")},
         summary = "Get user information",
-        description = "Get a user data by their unique identifier.",
+        description = "**Requires `"+Profile.Constant.USER+"` or `"+Profile.Constant.ADMIN+"` profile**.\n\n" +
+            "Get a user data by their unique identifier.",
         responses = {
             @ApiResponse(responseCode = "201", description = "New user successfully created"),
-            @ApiResponse(responseCode = "404", description = ArchitectureMessage.ENTITY_NOT_FOUND)
+            @ApiResponse(responseCode = "404", description = ArchitectureMessage.ENTITY_NOT_FOUND, content={@Content(schema=@Schema(implementation=ApiErrorDTO.class))})
         }
     )
     @GetMapping(value="/{id}", produces={MediaType.APPLICATION_JSON_VALUE})
@@ -130,10 +136,11 @@ public class UserController {
     @Operation(
         security = {@SecurityRequirement(name = "OIDC")},
         summary = "Delete a user",
-        description = "Delete a user by their unique identifier.",
+        description = "**Requires `"+Profile.Constant.ADMIN+"` profile**.\n\n" +
+            "Delete a user by their unique identifier.",
         responses = {
             @ApiResponse(responseCode = "204", description = "User successfully deleted"),
-            @ApiResponse(responseCode = "404", description = ArchitectureMessage.ENTITY_NOT_FOUND)
+            @ApiResponse(responseCode = "404", description = ArchitectureMessage.ENTITY_NOT_FOUND, content={@Content(schema=@Schema(implementation=ApiErrorDTO.class))})
         }
     )
     @DeleteMapping(value="/{id}", produces={MediaType.APPLICATION_JSON_VALUE})
@@ -151,10 +158,11 @@ public class UserController {
     @Operation(
         security = {@SecurityRequirement(name = "OIDC")},
         summary = "Update a user",
-        description = "Update the specified user by their id. Informs only the fields that is required to be update",
+        description = "**Requires `"+Profile.Constant.ADMIN+"` profile**.\n\n" +
+            "Update the specified user by their id. Informs only the fields that is required to be update",
         responses = {
             @ApiResponse(responseCode = "200", description = "User successfully updated"),
-            @ApiResponse(responseCode = "404", description = ArchitectureMessage.ENTITY_NOT_FOUND)
+            @ApiResponse(responseCode = "404", description = ArchitectureMessage.ENTITY_NOT_FOUND, content={@Content(schema=@Schema(implementation=ApiErrorDTO.class))})
         }
     )
     @PatchMapping(value="/{id}", produces={MediaType.APPLICATION_JSON_VALUE}, consumes={MediaType.APPLICATION_JSON_VALUE})
