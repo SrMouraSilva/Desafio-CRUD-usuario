@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-@Tag(name="Authentication", description="Users authentication")
+@Tag(name="Authentication", description="Users authentication.")
 public class AuthController {
     @Autowired
     private UserDetailsService service;
@@ -35,7 +35,7 @@ public class AuthController {
 
     @ResponseStatus(HttpStatus.OK)
     @Operation(
-        security = {@SecurityRequirement(name = "Basic")},
+        security = {@SecurityRequirement(name = "None")},
         summary = "Authenticate",
         description = "Obtains a token based on informed credentials. \n\n" +
             "If you want change the current password, please check [PATCH `/users/{id}`](#tag/Users/operation/patch).",

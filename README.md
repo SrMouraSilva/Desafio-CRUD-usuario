@@ -9,7 +9,7 @@ Acesse a [documentação de `/auth`](http://localhost:8080/documentation/index.h
 
 O gerenciamento do usuário se dá por meio dos endpoints `/users`.
 Recomenda-se uma consulta a [documentação de `users`](http://localhost:8080/documentation/index.html#tag/Users)
-para obter mais detalhes. Note que esses endpoints são todos protegidos, de forma que é necessário informar um token válido
+para obter mais detalhes. Note que esses endpoints são todos protegidos, de forma que é necessário informar um token válido.
 Usuário sem nível de administrador consegue buscar usuários.
 Usuário com nível administrativo possui também permissão para criar, editar e remover usuários.
 
@@ -28,13 +28,7 @@ acessível a partir dos seguintes endereços:
 Nas subseções a seguir, são disponibilizadas três formas para a execução da aplicação.
 Em todas elas, além da aplicação, um banco MongoDB pré-populado também é executado.
 
-Um usuário de nível administrador é pré-populado no banco.
-```
-username: admin@example.com 
-password: S3cretP@ssword
-```
-
-É possível apontar para outro banco por meio das seguintes variáveis de ambiente:
+Caso deseje, é possível apontar para outro banco por meio das seguintes variáveis de ambiente:
 ```
 MONGODB_HOST=
 MONGODB_PORT=
@@ -44,7 +38,7 @@ MONGODB_PASSWORD=
 ```
 
 Para customizar as variáveis referentes a autenticação, são disponibilizadas as seguintes variáveis de ambiente.
-Recomenda-se ler os comentários de [`application.yml`](src/main/resources/application.yml).
+Recomenda-se ler os comentários de [`application.yml`](src/main/resources/application.yml) para saber mais sobre elas.
 Note que ambiente de produção é importante definir outro `TOKEN_SECRET`, caso contrário,
 terceiros poderão gerar tokens cujo qual a aplicação considerará válida a partir `TOKEN_SECRET`
 de desenvolvimento pré-definido.   
@@ -56,7 +50,7 @@ TOKEN_SECRET=
 
 A configuração de log está como DEBUG/INFO dado o caráter experimental/educacional.  
 
-### Via gradle + `docker compose`
+### Via Gradle + `docker compose`
 
 Para essa tarefa, é esperado que tenha uma JDK 8 instalado.
 O gradle será utilizado para subir a aplicação e o `docker compose`
@@ -86,7 +80,7 @@ java -jar build/libs/desafio-0.0.1-SNAPSHOT.jar
 #~/.jdks/temurin-1.8.0_352/jre/bin/java -jar build/libs/desafio-0.0.1-SNAPSHOT.jar
 ```
 
-### Via docker + docker compose
+### Via Docker + Docker compose
 
 Para criar a imagem, é necessário previamente gerar o `.jar`.
 Foi decidido não utilizar um [build multi-estágio](https://docs.docker.com/build/building/multi-stage/)
@@ -112,11 +106,11 @@ docker run --rm --name crud -p 8080:8080 \
     ghcr.io/srmourasilva/desafio-crud-usuario:latest
 ```
 
-### Via Kubernetes + docker compose
+### Via Kubernetes
 
-Siga os passos para subir a aplicação no Kubernetes e o banco via docker compose.
+Siga os passos para subir a aplicação e o banco no Kubernetes.
 
-> TODO - Colocar também o banco no Kubernetes
+> **Nota**: Pra o Kubernetes reconhecer a imagem do webservice, é necessário envia-lo para um registry cujo qual ele tenha acesso. No exemplo abaixo, é considerado que o registry é o `localhost:5000`. Caso você deseje colocar em outro registry, lembre-se de editar o nome da imagem em [etc/kubernetes/webservice-deployment.yaml, linha 30](etc/kubernetes/webservice-deployment.yaml).
 
 ```bash
 # Passo 1 - Gerar artefato .jar
@@ -128,17 +122,11 @@ docker build --file etc/docker/Dockerfile --tag ghcr.io/srmourasilva/desafio-cru
 # Aqui no exemplo, será o localhost:5000
 docker tag ghcr.io/srmourasilva/desafio-crud-usuario:latest localhost:5000/srmourasilva/desafio-crud-usuario:latest
 # Passo 4 - Enviar imagem para o registry
-docker push localhost:5000/srmourasilva/desafio-crud-usuario:latest .
-# Passo 1 - Subir banco de dados
-cd etc/docker
-docker compose up -d
-# Passo 6 - Atualizar o arquivo etc/docker/deployment.yaml
-# Altere o host do banco de dados
-nano etc/docker/deployment.yaml
-# Passo 7 - Subir aplicação
-kubectl -f apply deployment.yaml
-# Passo 8 - Faça um foward para ver a aplicação em execução
-kubectl port-forward svc/demo 8080:8080
+docker push localhost:5000/srmourasilva/desafio-crud-usuario:latest
+# Passo 5 - Subir aplicação
+kubectl apply -f etc/kubernetes
+# Passo 6 - VocÊ pode fazer um port-foward para ver a aplicação em execução
+kubectl port-forward svc/webservice 8080:8080
 ```
 
 ## Testes
